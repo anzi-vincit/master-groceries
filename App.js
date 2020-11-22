@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, Modal, Alert, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
+import { Button, Body, Container, Header, Text, Title, Right, Left } from 'native-base';
+import { AppLoading } from 'expo';
+import { useFonts } from 'expo-font';
 
-import { Colors, StyleSheets } from './styles';
 import { GroceryListItem } from './components/grocery-list-item';
 import { AddItemModal } from './components/add-item-modal';
-import { Button, Body, Container, Content, Footer, Header, Text, Title, Right, Left, Row, Col, List } from 'native-base';
-import { useFonts } from 'expo-font';
-import { AppLoading } from 'expo';
 
 const App = () => {
 
+  const [fontsLoaded] = useFonts({
+    'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+  });
+  
   const [ shoppingList, setShoppingList ] = useState([]); 
-
   const [ modalVisible, setModalVisible ] = useState(false);
 
   const addItem = (name, quantity) => {
@@ -19,9 +21,9 @@ const App = () => {
     setModalVisible(false);
   };
 
-  const [fontsLoaded] = useFonts({
-    'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-  });
+  const onNewShoppingTrip = () => {
+    setShoppingList([]);
+  }
 
   if (!fontsLoaded) {
     return <AppLoading />
@@ -48,7 +50,14 @@ const App = () => {
           onPress={() => setModalVisible(true)}
           accessibilityLabel="Add new item to the shopping list">
             <Text>Add a new grocery item</Text>
-        </Button>             
+        </Button>
+        <Button
+          block
+          danger
+          onPress={onNewShoppingTrip}
+          accessibilityLabel="Start a new shopping trip">
+            <Text>Start a new shopping trip</Text>
+        </Button>         
     </Container>      
   );
 }
