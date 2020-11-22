@@ -1,20 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 const styleSheets = StyleSheet.create({
-  mainContainer: {
+  listItemOutline: {  
+    borderBottomWidth: 2,
+    borderBottomColor: '#d6d6d6',
     flex: 1,
-    paddingTop: 32,
+    height: 64,
   },
   listItemContainer: {
     alignItems: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: '#d6d6d6',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
     flex: 1,
     flexDirection: 'row',
     justifyContent:'space-between',
-    height: 64,
     paddingLeft: 32,
     paddingRight: 32,
   },

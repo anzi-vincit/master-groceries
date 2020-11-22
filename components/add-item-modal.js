@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, FlatList, Modal, Alert, TextInput } from 'react-native';
-import { Input, Item, Button, Content, Form, Text } from 'native-base';
+import { View, Modal } from 'react-native';
+import { Input, Item, Button, Form, Text } from 'native-base';
 
-import { Colors, StyleSheets } from '../styles';
-import styleSheets from '../styles/style-sheets';
+import { StyleSheets } from '../styles';
 
 const AddItemModal = (props) => {  
 
