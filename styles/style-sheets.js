@@ -5,16 +5,17 @@ const styleSheets = StyleSheet.create({
     flex: 1,
     paddingTop: 32,
   },
-  listItemContainer: {
-    alignItems: 'center',
+  listItemOutline: {  
     borderBottomWidth: 2,
     borderBottomColor: '#d6d6d6',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    flex: 1,
+    height: 64,
+  },
+  listItemContainer: {
+    alignItems: 'center',
     flex: 1,
     flexDirection: 'row',
     justifyContent:'space-between',
-    height: 64,
     paddingLeft: 32,
     paddingRight: 32,
   },

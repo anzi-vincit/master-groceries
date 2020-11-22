@@ -27,6 +27,10 @@ const App = () => {
     return <AppLoading />
   }
 
+  const onNewShoppingTrip = () => {
+    setShoppingList([]);
+  }
+
   return (
     <Container>
       <Header>
@@ -48,7 +52,14 @@ const App = () => {
           onPress={() => setModalVisible(true)}
           accessibilityLabel="Add new item to the shopping list">
             <Text>Add a new grocery item</Text>
-        </Button>             
+        </Button>
+        <Button
+          block
+          danger
+          onPress={onNewShoppingTrip}
+          accessibilityLabel="Start a new shopping trip">
+            <Text>Start a new shopping trip</Text>
+        </Button>         
     </Container>      
   );
 }
