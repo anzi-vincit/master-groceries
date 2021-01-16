@@ -2,20 +2,27 @@ import React from 'react';
 import { FlatList } from 'react-native';
 import { Button, Body, Container, Header, Text, Title, Right, Left } from 'native-base';
 import { connect } from 'react-redux';
+import * as _ from 'lodash';
 
 import { GroceryListItem } from '../components/grocery-list-item';
-import { AddItemModal } from '../components/add-item-modal';
+import AddItemModal from './add-item-modal';
+import ConfrimShoppingTripModal from './confirm-shopping-trip-modal';
 import { addGroceryItem, startNewShoppingTrip, markItemShopped, showModal, hideModal, MODAL_TYPES } from '../actions';
 import { selectShoppingList, selectModals } from '../reducers'
 
 const MainContainer = (props) => {
-  const addItem = (name, quantity) => {
-    props.addGroceryItem({ name, quantity, id: Date.now() });
-    props.hideModal();
-  };
-
   const shoppingListEmpty = () => {
     return props.shoppingList.length === 0;
+  }
+
+  const onPressNewShoppingTrip = () => {
+    const unshoppedItems = _.some(props.shoppingList, item => !item.shopped);
+
+    if(unshoppedItems) {
+      props.showModal(MODAL_TYPES.CONFIRM_NEW_SHOPPING_TRIP);
+    } else {
+      props.startNewShoppingTrip();
+    }
   }
 
   return (
@@ -27,7 +34,8 @@ const MainContainer = (props) => {
         </Body>
         <Right />
       </Header>      
-      <AddItemModal addItem={addItem} modalVisible={props.modals[MODAL_TYPES.ADD_NEW_ITEM]} onClose={() => props.hideModal()} />
+      <AddItemModal />
+      <ConfrimShoppingTripModal />
       <FlatList
         data={props.shoppingList}
         renderItem={({item}) => <GroceryListItem item={item} onItemShopped={props.markItemShopped} />}
@@ -44,7 +52,7 @@ const MainContainer = (props) => {
         block
         disabled={shoppingListEmpty()}
         danger={!shoppingListEmpty()}
-        onPress={props.startNewShoppingTrip}
+        onPress={onPressNewShoppingTrip}
         accessibilityLabel="Start a new shopping trip">
           <Text>Start a new shopping trip</Text>
       </Button>
@@ -54,7 +62,6 @@ const MainContainer = (props) => {
 
 const mapStateToProps = (state) => ({
   shoppingList: selectShoppingList(state),
-  modals: selectModals(state),
 });
 
 export default connect(mapStateToProps, { addGroceryItem, startNewShoppingTrip, markItemShopped, showModal, hideModal })(MainContainer);

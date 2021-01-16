@@ -7,6 +7,7 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 
 export const MODAL_TYPES = Object.freeze({
   ADD_NEW_ITEM: 'ADD_NEW_ITEM',
+  CONFIRM_NEW_SHOPPING_TRIP: 'CONFIRM_NEW_SHOPPING_TRIP',
 });
 
 export const addGroceryItem = (groceryItem) => ({
