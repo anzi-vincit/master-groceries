@@ -23,4 +23,4 @@ export const modals = (state = ALL_MODALS_HIDDEN, action ) => {
   }
 }
 
-export const selectModals = (state) => state.modals;
+export const selectModalVisible = (state, MODAL_TYPE) => state.modals[MODAL_TYPE];
