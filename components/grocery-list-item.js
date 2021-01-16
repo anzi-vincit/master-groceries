@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
 import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
 import * as Haptics from 'expo-haptics';
@@ -7,18 +7,16 @@ import { StyleSheets } from '../styles';
 
 const GroceryListItem = (props) => {
 
-  const [ shopped, setShopped ] = useState(false);
-
     const onSwipe = (gestureName, gestureState) => {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       const { SWIPE_LEFT, SWIPE_RIGHT } = swipeDirections;
       if ( gestureName === SWIPE_LEFT || gestureName === SWIPE_RIGHT ) {
-        setShopped(true);
+        props.onItemShopped(props.item.id);
       }
     }
 
     const getTextStyle = () => {
-      return shopped ? 
+      return props.item.shopped ? 
         {
           color: '#808080',
           textDecorationLine: 'line-through',
@@ -30,7 +28,7 @@ const GroceryListItem = (props) => {
     }
 
     const getContainerStyle = () => {
-      return shopped ? 
+      return props.item.shopped ? 
       {
         backgroundColor: '#f0f0f0',
       } :
