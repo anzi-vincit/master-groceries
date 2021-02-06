@@ -1,4 +1,5 @@
-import { ADD_GROCERY_ITEM, START_NEW_SHOPPING_TRIP, MARK_ITEM_SHOPPED } from '../actions'
+import * as _ from 'lodash';
+import { ADD_GROCERY_ITEM, START_NEW_SHOPPING_TRIP, MARK_ITEM_SHOPPED, MODIFY_GROCERY_ITEM } from '../actions'
 
 export const shoppingList = (state = [], action) => {
   switch(action.type) {
@@ -30,3 +31,4 @@ export const shoppingList = (state = [], action) => {
 }
 
 export const selectShoppingList = (state) => state.shoppingList;
+export const selectGroceryItem = (state, id) => _.find(state.shoppingList, { id });

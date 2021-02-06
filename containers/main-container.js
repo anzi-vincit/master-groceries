@@ -5,10 +5,11 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
 import { GroceryListItem } from '../components/grocery-list-item';
-import AddItemModal from './add-item-modal';
+import ModifyItemModal from './modify-item-modal';
 import ConfrimShoppingTripModal from './confirm-shopping-trip-modal';
-import { addGroceryItem, startNewShoppingTrip, markItemShopped, showModal, hideModal, MODAL_TYPES } from '../actions';
-import { selectShoppingList, selectModals } from '../reducers'
+import TakeActionModal from './take-action-modal';
+import { startNewShoppingTrip, markItemShopped, showModal, modifyGroceryItem, takeActionOnItem, MODAL_TYPES } from '../actions';
+import { selectShoppingList } from '../reducers'
 
 const MainContainer = (props) => {
   const shoppingListEmpty = () => {
@@ -33,12 +34,16 @@ const MainContainer = (props) => {
           <Title>Master Groceries</Title>
         </Body>
         <Right />
-      </Header>      
-      <AddItemModal />
+      </Header>
+      <ModifyItemModal />
       <ConfrimShoppingTripModal />
+      <TakeActionModal />
       <FlatList
         data={props.shoppingList}
-        renderItem={({item}) => <GroceryListItem item={item} onItemShopped={props.markItemShopped} />}
+        renderItem={({item}) => <GroceryListItem
+          item={item}
+          onItemShopped={props.markItemShopped}
+          onTakeAction={() => props.takeActionOnItem(item.id)} />}
         keyExtractor={(item) => item.id.toString()}
       />
       <Button
@@ -64,4 +69,4 @@ const mapStateToProps = (state) => ({
   shoppingList: selectShoppingList(state),
 });
 
-export default connect(mapStateToProps, { addGroceryItem, startNewShoppingTrip, markItemShopped, showModal, hideModal })(MainContainer);
+export default connect(mapStateToProps, { startNewShoppingTrip, markItemShopped, showModal, modifyGroceryItem, takeActionOnItem })(MainContainer);

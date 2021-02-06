@@ -39,6 +39,7 @@ const GroceryListItem = (props) => {
 
     const onLongPress = () => {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      props.onTakeAction();
     }
 
     return (
